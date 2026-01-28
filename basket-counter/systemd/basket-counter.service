@@ -1,0 +1,14 @@
+[Unit]
+Description=Basket Counter
+After=network.target
+
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/basket-counter/main.py
+WorkingDirectory=/home/pi/basket-counter
+Restart=always
+User=pi
+
+
+[Install]
+WantedBy=multi-user.target
