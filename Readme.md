@@ -2,7 +2,7 @@
 
 Système autonome de comptage de paniers de basket utilisant un **capteur optique**,  
 un **Raspberry Pi B 1.2**, des **GPIO**, et une **interface web locale**.
-
+Utilisation d'une image: tianon/raspbian:bullseye-slim
 Conçu pour un **usage club** : robuste, simple, sans écran/clavier, utilisable par tous.
 
 ---
