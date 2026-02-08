@@ -7,13 +7,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-return render_template("index.html")
+    return render_template("index.html")
 
 
 @app.route("/api/state")
 def api_state():
-return jsonify({
-"score": state.state["score"],
-"time": state.elapsed(),
-"running": state.state["running"]
-})
+    return jsonify({
+    "score": state.state["score"],
+    "time": state.elapsed(),
+    "running": state.state["running"]
+    })

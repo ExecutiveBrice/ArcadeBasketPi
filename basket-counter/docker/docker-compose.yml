@@ -8,3 +8,12 @@ services:
     command: bash
     volumes:
       - ./data:/data
+  rpi3:
+    image: tianon/raspbian:bullseye
+    platform: linux/arm/v6
+    container_name: rpi_b_1_2
+    tty: true
+    stdin_open: true
+    command: bash
+    volumes:
+      - ./data:/data
