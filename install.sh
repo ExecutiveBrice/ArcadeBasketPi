@@ -2,7 +2,7 @@
 
 set -e
 
-PROJECT_DIR="/home/ArcadeBasketPi"
+PROJECT_DIR="/home/alod/ArcadeBasketPi"
 
 cd $PROJECT_DIR
 
