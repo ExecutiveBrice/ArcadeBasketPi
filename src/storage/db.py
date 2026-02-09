@@ -3,6 +3,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH = os.path.join(BASE_DIR, "storage", "database.db")
+SCHEMA_PATH = os.path.join(BASE_DIR, "storage", "schema.sql")
 
 def get_connection():
     return sqlite3.connect(DB_PATH)
@@ -11,7 +12,7 @@ def init_db():
     conn = get_connection()
     cursor = conn.cursor()
 
-    with open("storage/schema.sql", "r") as f:
+    with open(SCHEMA_PATH, "r") as f:
         cursor.executescript(f.read())
 
     conn.commit()
