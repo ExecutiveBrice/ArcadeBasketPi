@@ -1,41 +1,38 @@
 import sqlite3
-from config import DB_PATH
-import time
+
+DB_PATH = "storage/database.db"
 
 def get_connection():
     return sqlite3.connect(DB_PATH)
 
 def init_db():
     conn = get_connection()
-    cur = conn.cursor()
-    cur.execute("""
-        CREATE TABLE IF NOT EXISTS matchs (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            date INTEGER,
-            score INTEGER,
-            duration INTEGER
-        )
-    """)
+    cursor = conn.cursor()
+
+    with open("storage/schema.sql", "r") as f:
+        cursor.executescript(f.read())
+
     conn.commit()
     conn.close()
 
 def save_match(score, duration):
     conn = get_connection()
-    cur = conn.cursor()
-    cur.execute(
-        "INSERT INTO matchs (date, score, duration) VALUES (?, ?, ?)",
-        (int(time.time()), score, duration)
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "INSERT INTO matches (score, duration_seconds) VALUES (?, ?)",
+        (score, duration)
     )
+
     conn.commit()
     conn.close()
 
-def get_history(limit=10):
+def get_best_score():
     conn = get_connection()
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT date, score, duration FROM matchs ORDER BY date DESC LIMIT ?",
-        (limit,)
-    )
-    rows = cur.fetchall()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT MAX(score) FROM matches")
+    result = cursor.fetchone()[0]
+
     conn.close()
-    return rows
+    return result if result else 0
