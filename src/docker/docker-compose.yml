@@ -13,6 +13,8 @@ services:
     platform: linux/arm/v7
     container_name: rpi_b_3
     tty: true
+    ports:
+      - "5050:5000"
     stdin_open: true
     command: bash
     volumes:
