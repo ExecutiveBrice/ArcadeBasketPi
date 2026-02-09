@@ -18,14 +18,14 @@ pip install -r requirements.txt
 
 echo "🗄️ Initialisation base SQLite..."
 python - <<EOF
-from storage.db import init_db
+from src.storage.db import init_db
 init_db()
 print("Base initialisée ✅")
 EOF
 
 echo "🔊 Test audio (optionnel)"
-if [ -f sounds/bip.wav ]; then
-    aplay sounds/bip.wav || true
+if [ -f src/sounds/bip.wav ]; then
+    aplay src/sounds/bip.wav || true
 fi
 
 echo "✅ Installation terminée"
