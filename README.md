@@ -1,3 +1,23 @@
+# Etape 1 Maj du systeme:
+
+echo "🔄 Mise à jour système..."
+sudo apt update
+sudo apt upgrade -y
+
+echo "📦 Installation dépendances système..."
+sudo apt install -y \
+python3 \
+python3-venv \
+python3-pip \
+python3-rpi.gpio \
+alsa-utils \
+git
+
+
+# Etape 2 : clone le repo
+git clone https://github.com/ExecutiveBrice/ArcadeBasketPi.git
+
+
 # 🏀 Basket Counter – Raspberry Pi
 
 Système autonome de comptage de paniers de basket utilisant un **capteur optique**,  

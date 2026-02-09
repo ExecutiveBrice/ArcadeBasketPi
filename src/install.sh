@@ -2,29 +2,7 @@
 
 set -e
 
-PROJECT_DIR="/home/alod/ArcadeBasketPi"
-
-echo "🔄 Mise à jour système..."
-sudo apt update
-sudo apt upgrade -y
-
-echo "📦 Installation dépendances système..."
-sudo apt install -y \
-python3 \
-python3-venv \
-python3-pip \
-python3-rpi.gpio \
-alsa-utils \
-git
-
-echo "📁 Création dossier projet si absent..."
-mkdir -p /home/alod
-cd /home/alod
-
-if [ ! -d "ArcadeBasketPi" ]; then
-    echo "⬇️ Clonage du repo..."
-    git clone https://github.com/ExecutiveBrice/ArcadeBasketPi.git
-fi
+PROJECT_DIR="/home/ArcadeBasketPi"
 
 cd $PROJECT_DIR
 
