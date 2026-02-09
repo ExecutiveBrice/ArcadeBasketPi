@@ -1,10 +1,5 @@
-from hardware.gpio import init_gpio, cleanup
-from hardware.capteur import on_panier
-from hardware.bouton import on_reset
+from hardware.gpio import cleanup
 from app import app
-import RPi.GPIO as GPIO
-from config import GPIO_CAPTEUR, GPIO_RESET
-
 
 def main():
     try:
