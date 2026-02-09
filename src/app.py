@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return render_template("src/static/index.html",
+    return render_template("index.html",
     score=5,
     minutes=1,
     seconds=str(15).zfill(2),

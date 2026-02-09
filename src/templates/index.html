@@ -1,34 +1,127 @@
-body {
-    background-color: #0b132b;
-    color: #ffffff;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Arcade Basket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.container {
-    text-align: center;
-    padding-top: 40px;
-}
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #111, #1e1e1e);
+            color: white;
+            text-align: center;
+        }
 
-h1 {
-    font-size: 3em;
-    margin-bottom: 30px;
-}
+        header {
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            background: #ff6b00;
+            color: white;
+            letter-spacing: 2px;
+        }
 
-.score {
-    font-size: 8em;
-    font-weight: bold;
-    color: #fca311;
-    margin: 20px 0;
-}
+        .container {
+            padding: 30px;
+        }
 
-.timer {
-    font-size: 3em;
-    margin: 20px 0;
-}
+        .score {
+            font-size: 120px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #00ff99;
+        }
 
-.status {
-    font-size: 1.5em;
-    opacity: 0.8;
-}
+        .timer {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .record {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #ffd700;
+        }
+
+        button {
+            font-size: 20px;
+            padding: 15px 40px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-reset {
+            background: #e63946;
+            color: white;
+        }
+
+        .btn-reset:hover {
+            background: #c1121f;
+        }
+
+        .btn-start {
+            background: #2a9d8f;
+            color: white;
+        }
+
+        .btn-start:hover {
+            background: #1f776d;
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 600px) {
+            .score {
+                font-size: 80px;
+            }
+            .timer {
+                font-size: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    🏀 ARCADE BASKET
+</header>
+
+<div class="container">
+
+    <div class="timer">
+        ⏱ {{ minutes }}:{{ seconds }}
+    </div>
+
+    <div class="score">
+        {{ score }}
+    </div>
+
+    <div class="record">
+        🏆 Record : {{ best_score }} paniers
+    </div>
+
+    <form method="POST" action="/start">
+        <button class="btn-start">Démarrer le match</button>
+    </form>
+
+    <form method="POST" action="/reset">
+        <button class="btn-reset">Reset</button>
+    </form>
+
+</div>
+
+<footer>
+    ArcadeBasketPi – Club Mode
+</footer>
+
+</body>
+</html>
