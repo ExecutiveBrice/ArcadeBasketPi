@@ -7,11 +7,11 @@ from config import GPIO_CAPTEUR, GPIO_RESET
 
 
 def main():
-    init_gpio()
-
-
-GPIO.add_event_detect(GPIO_CAPTEUR, GPIO.RISING, callback=on_panier)
-GPIO.add_event_detect(GPIO_RESET, GPIO.FALLING, callback=on_reset, bouncetime=200)
+#     init_gpio()
+#
+#
+# GPIO.add_event_detect(GPIO_CAPTEUR, GPIO.RISING, callback=on_panier)
+# GPIO.add_event_detect(GPIO_RESET, GPIO.FALLING, callback=on_reset, bouncetime=200)
 
 
 try:
