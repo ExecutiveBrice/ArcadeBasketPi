@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arcade Basket Counter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <section class="scoreboard card">
+      <h1>Arcade Basket Counter</h1>
+      <div class="stat-row">
+        <div class="stat">
+          <span class="label">Current Score</span>
+          <span id="score" class="value score">{{ score }}</span>
+        </div>
+        <div class="stat">
+          <span class="label">Elapsed Time</span>
+          <span id="elapsed" class="value">{{ elapsed }}</span>
+        </div>
+        <div class="stat">
+          <span class="label">Best Score</span>
+          <span id="best" class="value">{{ best_score }}</span>
+        </div>
+      </div>
+
+      <p class="status">
+        Match status:
+        <strong id="status-text">{{ 'ACTIVE' if active else 'IDLE' }}</strong>
+      </p>
+
+      <div class="actions">
+        <a class="btn" href="/start">Start</a>
+        <a class="btn warn" href="/reset">Reset / New Match</a>
+        <a class="btn stop" href="/stop">Stop</a>
+      </div>
+    </section>
+
+    <section class="history card">
+      <h2>Recent Matches</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Score</th>
+            <th>Duration</th>
+            <th>Timestamp (UTC)</th>
+          </tr>
+        </thead>
+        <tbody id="history-body">
+          {% for item in history %}
+          <tr>
+            <td>{{ item.match_id }}</td>
+            <td>{{ item.score }}</td>
+            <td>{{ format_duration(item.duration) }}</td>
+            <td>{{ item.timestamp }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4">No match history yet.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    async function refreshStatus() {
+      try {
+        const res = await fetch('/api/status');
+        const data = await res.json();
+        document.getElementById('score').textContent = data.score;
+        document.getElementById('elapsed').textContent = data.elapsed;
+        document.getElementById('best').textContent = data.best_score;
+        document.getElementById('status-text').textContent = data.active ? 'ACTIVE' : 'IDLE';
+      } catch (err) {
+        console.error('Status refresh failed:', err);
+      }
+    }
+
+    async function refreshHistory() {
+      try {
+        const res = await fetch('/api/history');
+        const rows = await res.json();
+        const body = document.getElementById('history-body');
+        if (!rows.length) {
+          body.innerHTML = '<tr><td colspan="4">No match history yet.</td></tr>';
+          return;
+        }
+
+        body.innerHTML = rows.map((row) => {
+          const mins = String(Math.floor(row.duration / 60)).padStart(2, '0');
+          const secs = String(row.duration % 60).padStart(2, '0');
+          return `<tr>
+            <td>${row.match_id}</td>
+            <td>${row.score}</td>
+            <td>${mins}:${secs}</td>
+            <td>${row.timestamp}</td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        console.error('History refresh failed:', err);
+      }
+    }
+
+    setInterval(() => {
+      refreshStatus();
+      refreshHistory();
+    }, 1000);
+  </script>
+</body>
+</html>

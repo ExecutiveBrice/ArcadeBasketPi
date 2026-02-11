@@ -1,0 +1,15 @@
+[Unit]
+Description=Arcade Basket Counter Service
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/opt/ArcadeBasketPi
+ExecStart=/usr/bin/python3 /opt/ArcadeBasketPi/main.py
+Restart=always
+RestartSec=2
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
