@@ -6,6 +6,7 @@ from hardware.son import play_panier
 
 last_hit = 0
 
+
 def on_panier(channel):
     global last_hit
     now = time.time()
@@ -13,7 +14,7 @@ def on_panier(channel):
     if now - last_hit < DELAI_MIN_PANIER:
         return
 
-    if not state.state["running"]:
+    if not state.is_running():
         return
 
     last_hit = now
